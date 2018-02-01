@@ -225,6 +225,21 @@
     _scrollView.contentSize = CGSizeMake(self.scrollView.tz_width, contentSizeH);
     [_scrollView scrollRectToVisible:self.bounds animated:NO];
     _scrollView.alwaysBounceVertical = _imageContainerView.tz_height <= self.tz_height ? NO : YES;
+  
+    if (_allowCrop) {
+      CGRect containerFrame = _imageContainerView.frame;
+      
+      // 确保撑满裁剪区域
+      if (containerFrame.size.width > 0 || containerFrame.size.height > 0) {
+        CGFloat aspectRatio = MAX(_cropRect.size.width/containerFrame.size.width, _cropRect.size.height/containerFrame.size.height);
+        
+        if (aspectRatio > 1) {
+          [_imageContainerView setTz_size:CGSizeMake(aspectRatio*containerFrame.size.width, aspectRatio*containerFrame.size.height)];
+          [_imageContainerView setCenter:CGPointMake(_cropRect.origin.x + 0.5*_cropRect.size.width, _cropRect.origin.y + 0.5*_cropRect.size.height)];
+        }
+      }
+    }
+  
     _imageView.frame = _imageContainerView.bounds;
     
     [self refreshScrollViewContentSize];
