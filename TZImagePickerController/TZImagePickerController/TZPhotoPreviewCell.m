@@ -205,41 +205,31 @@
 }
 
 - (void)resizeSubviews {
+    CGSize cropSize = self.cropRect.size;
     _imageContainerView.tz_origin = CGPointZero;
-    _imageContainerView.tz_width = self.scrollView.tz_width;
     
     UIImage *image = _imageView.image;
-    if (image.size.height / image.size.width > self.tz_height / self.scrollView.tz_width) {
-        _imageContainerView.tz_height = floor(image.size.height / (image.size.width / self.scrollView.tz_width));
+    CGFloat aspectRatio = image.size.height / image.size.width;
+    if (aspectRatio < 1.0f) {
+        _imageContainerView.tz_width = ceilf(cropSize.height / aspectRatio);
+        _imageContainerView.tz_height = ceilf(cropSize.height);
+        _scrollView.alwaysBounceVertical = YES;
     } else {
-        CGFloat height = image.size.height / image.size.width * self.scrollView.tz_width;
-        if (height < 1 || isnan(height)) height = self.tz_height;
-        height = floor(height);
-        _imageContainerView.tz_height = height;
-        _imageContainerView.tz_centerY = self.tz_height / 2;
+        _imageContainerView.tz_width = ceilf(cropSize.width);
+        _imageContainerView.tz_height = ceilf(cropSize.width * aspectRatio);
+        _scrollView.alwaysBounceVertical = NO;
     }
-    if (_imageContainerView.tz_height > self.tz_height && _imageContainerView.tz_height - self.tz_height <= 1) {
-        _imageContainerView.tz_height = self.tz_height;
+    
+    CGFloat centerY = self.cropRect.origin.y + 0.5 * self.cropRect.size.height;
+    if ([TZCommonTools tz_isIPhoneX]) {
+        centerY -= 4;
     }
+    _imageContainerView.center = CGPointMake(self.cropRect.origin.x + 0.5 * (self.cropRect.size.width + _imageContainerView.tz_width - _scrollView.tz_width), centerY);
+    
     CGFloat contentSizeH = MAX(_imageContainerView.tz_height, self.tz_height);
-    _scrollView.contentSize = CGSizeMake(self.scrollView.tz_width, contentSizeH);
+    _scrollView.contentSize = CGSizeMake(_imageContainerView.tz_width, contentSizeH);
     [_scrollView scrollRectToVisible:self.bounds animated:NO];
-    _scrollView.alwaysBounceVertical = _imageContainerView.tz_height <= self.tz_height ? NO : YES;
-  
-    if (_allowCrop) {
-      CGRect containerFrame = _imageContainerView.frame;
-      
-      // 确保撑满裁剪区域
-      if (containerFrame.size.width > 0 || containerFrame.size.height > 0) {
-        CGFloat aspectRatio = MAX(_cropRect.size.width/containerFrame.size.width, _cropRect.size.height/containerFrame.size.height);
-        
-        if (aspectRatio > 1) {
-          [_imageContainerView setTz_size:CGSizeMake(aspectRatio*containerFrame.size.width, aspectRatio*containerFrame.size.height)];
-          [_imageContainerView setCenter:CGPointMake(_cropRect.origin.x + 0.5*_cropRect.size.width, _cropRect.origin.y + 0.5*_cropRect.size.height)];
-        }
-      }
-    }
-  
+    
     _imageView.frame = _imageContainerView.bounds;
     
     [self refreshScrollViewContentSize];
@@ -265,6 +255,9 @@
         // 1.让contentSize增大(裁剪框右下角的图片部分)
         CGFloat contentWidthAdd = self.scrollView.tz_width - CGRectGetMaxX(_cropRect);
         CGFloat contentHeightAdd = (MIN(_imageContainerView.tz_height, self.tz_height) - self.cropRect.size.height) / 2;
+        if ([TZCommonTools tz_isIPhoneX]) {
+            contentHeightAdd -= ([TZCommonTools tz_statusBarHeight] - 5);
+        }
         CGFloat newSizeW = self.scrollView.contentSize.width + contentWidthAdd;
         CGFloat newSizeH = MAX(self.scrollView.contentSize.height, self.tz_height) + contentHeightAdd;
         _scrollView.contentSize = CGSizeMake(newSizeW, newSizeH);
