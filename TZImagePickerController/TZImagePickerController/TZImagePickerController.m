@@ -810,12 +810,12 @@
     if (!preferredLanguage || !preferredLanguage.length) {
         preferredLanguage = [NSLocale preferredLanguages].firstObject;
     }
-    if ([preferredLanguage rangeOfString:@"zh-Hans"].location != NSNotFound) {
-        preferredLanguage = @"zh-Hans";
-    } else if ([preferredLanguage rangeOfString:@"zh-Hant"].location != NSNotFound) {
+    if ([preferredLanguage rangeOfString:@"zh-Hant"].location != NSNotFound) {
         preferredLanguage = @"zh-Hant";
-    } else if ([preferredLanguage rangeOfString:@"vi"].location != NSNotFound) {
-        preferredLanguage = @"vi";
+    } else if ([preferredLanguage rangeOfString:@"th"].location != NSNotFound) {
+        preferredLanguage = @"tn";
+    } else if ([preferredLanguage rangeOfString:@"id"].location != NSNotFound) {
+        preferredLanguage = @"id";
     } else {
         preferredLanguage = @"en";
     }

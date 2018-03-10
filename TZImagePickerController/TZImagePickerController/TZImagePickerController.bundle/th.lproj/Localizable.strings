@@ -1,0 +1,20 @@
+"OK" = "ยืนยัน";
+"Back" = "กลับ";
+"Done" = "เสร็จ";
+"Sorry" = "ขอโทษ";
+"Cancel" = "ยกเลิก";
+"Setting" = "ตั้งค่า";
+"Photos" = "รูปภาพ";
+"Videos" = "วีดีโอ";
+"Preview" = "ดูตัวอย่าง";
+"Full image" = "ภาพเต็ม";
+"Processing..." = "กำลังประมวลผล ...";
+"Can not use camera" = "ไม่สามารถใช้กล้องได้";
+"Synchronizing photos from iCloud" = "กำลังซิงค์รูปภาพจาก iCloud";
+"Can not choose both video and photo" = "ไม่สามารถเลือกวีดีโอขณะกำลังเลือกรูปภาพ";
+"Can not choose both photo and GIF" = "ไม่สามารถเลือก GIF ขณะกำลังเลือกรูปภาพ";
+"Select a maximum of %zd photos" = "คุณสามารถเลือกรูปได้มากสุด %zd ใบ";
+"Select a minimum of %zd photos" = "โปรดเลือกรูปอย่างน้อย %zd ใบ";
+"Allow %@ to access your album in \"Settings -> Privacy -> Photos\"" = "หากต้องการแก้ไขอัลบั้ม โปรดไปที่การตั้งค่าของ iPhone - > ความเป็นส่วนตัว -> รูปภาพ อนุญาตให้ Omi เข้าถึงรูปภาพของคุณ";
+"Please allow %@ to access your camera in \"Settings -> Privacy -> Camera\"" = "โปรดไปที่การตั้งค่าของ iPhone -> ความเป็นส่วนตัว -> กล้อง อนุญาตให้ Omi เข้าถึงกล้องของคุณ";
+
