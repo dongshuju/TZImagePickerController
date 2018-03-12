@@ -1,0 +1,22 @@
+"OK" = "OK";
+"Back" = "Kembali";
+"Done" = "Selesai";
+"Sorry" = "Maaf";
+"Cancel" = "Batalkan";
+"Setting" = "Pengaturan";
+"Photos" = "Foto";
+"Videos" = "Video";
+"Preview" = "Pratinjau";
+"Full image" = "Foto asli";
+"Processing..." = "Memproses...";
+"Can not use camera" = "Tidak bisa memakai kamera";
+"Synchronizing photos from iCloud" = "Sinkronisasi foto dari iCloud";
+"Can not choose both video and photo" = "Tidak dapat memilih video dan foto";
+"Can not choose both photo and GIF" = "Tidak dapat memilih foto dan GIF";
+"Select the video when in multi state, we will handle the video as a photo" = "Pilih video saat dalam multi state, kita akan menangani video sebagai foto";
+
+"Select a maximum of %zd photos" = "Pilih maksimal %zd foto";
+"Select a minimum of %zd photos" = "Pilih minimal %zd foto";
+"Allow %@ to access your album in \"Settings -> Privacy -> Photos\"" = "Untuk memodifikasi album, izinkan Omi membaca foto Anda di Pengaturan iPhone  -> Privasi -> Foto";
+"Please allow %@ to access your camera in \"Settings -> Privacy -> Camera\"" = "Buka Pengaturan iPhone -> Privasi -> Kamera untuk mengizinkan akses Tantan";
+
