@@ -295,7 +295,7 @@
     imagePickerVc.statusBarStyle = UIStatusBarStyleLightContent;
     
     // 设置首选语言
-    imagePickerVc.preferredLanguage = @"zh-Hans";
+    imagePickerVc.preferredLanguage = @"zh-Hant";
     
 #pragma mark - 到这里为止
     
