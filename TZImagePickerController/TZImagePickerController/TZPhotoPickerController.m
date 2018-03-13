@@ -80,13 +80,15 @@ static CGFloat itemMargin = 5;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = _model.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:tzImagePickerVc.cancelBtnTitleStr style:UIBarButtonItemStylePlain target:tzImagePickerVc action:@selector(cancelButtonClick)];
-    if (tzImagePickerVc.navLeftBarButtonSettingBlock) {
-        UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        leftButton.frame = CGRectMake(0, 0, 44, 44);
-        [leftButton addTarget:self action:@selector(navLeftBarButtonClick) forControlEvents:UIControlEventTouchUpInside];
-        tzImagePickerVc.navLeftBarButtonSettingBlock(leftButton);
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
-    }
+
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    leftButton.frame = CGRectMake(0, 0, 44, 44);
+    [leftButton addTarget:self action:@selector(navLeftBarButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [leftButton setTitle:[NSBundle tz_localizedStringForKey:[NSBundle tz_localizedStringForKey:@"Back"]] forState:UIControlStateNormal];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    
     _showTakePhotoBtn = (_model.isCameraRoll && tzImagePickerVc.allowTakePicture);
     // [self resetCachedAssets];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarOrientationNotification:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];

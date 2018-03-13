@@ -326,6 +326,7 @@
         TZPhotoPickerController *photoPickerVc = [[TZPhotoPickerController alloc] init];
         photoPickerVc.isFirstAppear = YES;
         photoPickerVc.columnNumber = self.columnNumber;
+        
         [[TZImageManager manager] getCameraRollAlbum:self.allowPickingVideo allowPickingImage:self.allowPickingImage needFetchAssets:NO completion:^(TZAlbumModel *model) {
             photoPickerVc.model = model;
             [self pushViewController:photoPickerVc animated:YES];
@@ -628,7 +629,7 @@
     }
     
     if (self.isFirstAppear && !imagePickerVc.navLeftBarButtonSettingBlock) {
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:@"Back"] style:UIBarButtonItemStylePlain target:nil action:nil];
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:[NSBundle tz_localizedStringForKey:@"Back"]] style:UIBarButtonItemStylePlain target:nil action:nil];
     }
     
     [self configTableView];
@@ -813,7 +814,7 @@
     if ([preferredLanguage rangeOfString:@"zh-Hant"].location != NSNotFound) {
         preferredLanguage = @"zh-Hant";
     } else if ([preferredLanguage rangeOfString:@"th"].location != NSNotFound) {
-        preferredLanguage = @"tn";
+        preferredLanguage = @"th";
     } else if ([preferredLanguage rangeOfString:@"id"].location != NSNotFound) {
         preferredLanguage = @"id";
     } else {
