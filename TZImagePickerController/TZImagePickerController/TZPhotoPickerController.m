@@ -82,7 +82,7 @@ static CGFloat itemMargin = 5;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:tzImagePickerVc.cancelBtnTitleStr style:UIBarButtonItemStylePlain target:tzImagePickerVc action:@selector(cancelButtonClick)];
 
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftButton.frame = CGRectMake(0, 0, 44, 44);
+    leftButton.frame = CGRectMake(0, 0, 64, 44);
     [leftButton addTarget:self action:@selector(navLeftBarButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
     [leftButton setTitle:[NSBundle tz_localizedStringForKey:[NSBundle tz_localizedStringForKey:@"Back"]] forState:UIControlStateNormal];
