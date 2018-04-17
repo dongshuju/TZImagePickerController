@@ -222,12 +222,25 @@
     
     CGFloat centerY = self.cropRect.origin.y + 0.5 * self.cropRect.size.height;
     if ([TZCommonTools tz_isIPhoneX]) {
-        centerY -= 4;
+        if (aspectRatio < 1.0f) {
+          centerY -= [TZCommonTools tz_statusBarHeight];
+        } else {
+          centerY -= 4;
+        }
     }
     _imageContainerView.center = CGPointMake(self.cropRect.origin.x + 0.5 * (self.cropRect.size.width + _imageContainerView.tz_width - _scrollView.tz_width), centerY);
     
     CGFloat contentSizeH = MAX(_imageContainerView.tz_height, self.tz_height);
-    _scrollView.contentSize = CGSizeMake(_imageContainerView.tz_width, contentSizeH);
+  
+    if ([TZCommonTools tz_isIPhoneX]) {
+      if (aspectRatio < 1.0f) {
+        _scrollView.contentSize = CGSizeMake(_imageContainerView.tz_width, MIN(contentSizeH, _cropRect.size.height));
+      } else {
+        _scrollView.contentSize = CGSizeMake(MIN(_imageContainerView.tz_width,_cropRect.size.height), contentSizeH);
+      }
+    } else {
+      _scrollView.contentSize = CGSizeMake(_imageContainerView.tz_width, contentSizeH);
+    }
     [_scrollView scrollRectToVisible:self.bounds animated:NO];
     
     _imageView.frame = _imageContainerView.bounds;
@@ -260,7 +273,18 @@
         }
         CGFloat newSizeW = self.scrollView.contentSize.width + contentWidthAdd;
         CGFloat newSizeH = MAX(self.scrollView.contentSize.height, self.tz_height) + contentHeightAdd;
-        _scrollView.contentSize = CGSizeMake(newSizeW, newSizeH);
+        if ([TZCommonTools tz_isIPhoneX]) {
+          UIImage *image = _imageView.image;
+          CGFloat aspectRatio = image.size.height / image.size.width;
+          if (aspectRatio < 1.0f) {
+            _scrollView.contentSize = CGSizeMake(newSizeW, MIN(newSizeH, _cropRect.size.height));
+          } else {
+            _scrollView.contentSize = CGSizeMake(MIN(newSizeW,_cropRect.size.height), newSizeH);
+          }
+        } else {
+          _scrollView.contentSize = CGSizeMake(newSizeW, newSizeH);
+        }
+      
         _scrollView.alwaysBounceVertical = YES;
         // 2.让scrollView新增滑动区域（裁剪框左上角的图片部分）
         if (contentHeightAdd > 0 || contentWidthAdd > 0) {
