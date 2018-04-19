@@ -4,7 +4,7 @@
 //
 //  Created by 谭真 on 15/12/24.
 //  Copyright © 2015年 谭真. All rights reserved.
-//  version 2.0.0.4 - 2018.01.29
+//  version 2.0.1 - 2018.03.25
 //  更多信息，请前往项目的github地址：https://github.com/banchichen/TZImagePickerController
 
 /*
@@ -24,6 +24,7 @@
 #define iOS8Later ([UIDevice currentDevice].systemVersion.floatValue >= 8.0f)
 #define iOS9Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)
 #define iOS9_1Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.1f)
+#define iOS11Later ([UIDevice currentDevice].systemVersion.floatValue >= 11.0f)
 
 @protocol TZImagePickerControllerDelegate;
 @interface TZImagePickerController : UINavigationController
@@ -90,6 +91,10 @@
 /// 目前支持繁体中文、英文、泰语、印尼语。故该属性只支持zh-Hant、en、id、th四种值，其余值无效。
 @property (copy, nonatomic) NSString *preferredLanguage;
 
+/// 语言bundle，preferredLanguage变化时languageBundle会变化
+/// 可通过手动设置bundle，让选择器支持新的的语言（需要在设置preferredLanguage后设置languageBundle）。欢迎提交PR把语言文件提交上来~
+@property (strong, nonatomic) NSBundle *languageBundle;
+
 /// Default is YES, if set NO, user can't preview photo.
 /// 默认为YES，如果设置为NO,预览按钮将隐藏,用户将不能去预览照片
 @property (nonatomic, assign) BOOL allowPreview;
@@ -97,6 +102,10 @@
 /// Default is YES, if set NO, the picker don't dismiss itself.
 /// 默认为YES，如果设置为NO, 选择器将不会自己dismiss
 @property(nonatomic, assign) BOOL autoDismiss;
+
+/// Default is YES, if set NO, in the delegate method the photos and infos will be nil, only assets hava value.
+/// 默认为NO，如果设置为YES，代理方法里photos和infos会是nil，只返回assets
+@property (assign, nonatomic) BOOL onlyReturnAsset;
 
 /// The photos user have selected
 /// 用户选中过的图片数组
@@ -253,6 +262,8 @@
 @interface TZCommonTools : NSObject
 + (BOOL)tz_isIPhoneX;
 + (CGFloat)tz_statusBarHeight;
+// 获得Info.plist数据字典
++ (NSDictionary *)tz_getInfoDictionary;
 @end
 
 
@@ -261,8 +272,7 @@
 @property (copy, nonatomic) NSString *preferredLanguage;
 @property(nonatomic, assign) BOOL allowPickingImage;
 @property (nonatomic, assign) BOOL allowPickingVideo;
-
-/// 语言bundle，preferredLanguage变化时languageBundle会变化
-/// 可通过设置bundle，让选择器支持更多的语言。欢迎提交PR把语言文件提交上来~
 @property (strong, nonatomic) NSBundle *languageBundle;
+/// 默认是200，如果一个GIF过大，里面图片个数可能超过1000，会导致内存飙升而崩溃
+@property (assign, nonatomic) NSInteger gifPreviewMaxImagesCount;
 @end
