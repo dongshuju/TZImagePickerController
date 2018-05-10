@@ -81,13 +81,7 @@ static CGFloat itemMargin = 5;
     self.navigationItem.title = _model.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:tzImagePickerVc.cancelBtnTitleStr style:UIBarButtonItemStylePlain target:tzImagePickerVc action:@selector(cancelButtonClick)];
 
-    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftButton.frame = CGRectMake(0, 0, 64, 44);
-    [leftButton addTarget:self action:@selector(navLeftBarButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    [leftButton setTitle:[NSBundle tz_localizedStringForKey:[NSBundle tz_localizedStringForKey:@"Back"]] forState:UIControlStateNormal];
-
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle tz_localizedStringForKey:[NSBundle tz_localizedStringForKey:@"Back"]] style:UIBarButtonItemStylePlain target:self action:@selector(navLeftBarButtonClick)];
     
     _showTakePhotoBtn = (_model.isCameraRoll && tzImagePickerVc.allowTakePicture);
     // [self resetCachedAssets];
