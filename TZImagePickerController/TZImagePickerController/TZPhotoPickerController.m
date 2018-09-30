@@ -185,6 +185,8 @@ static CGFloat itemMargin = 5;
     if (!_models) {
         [self fetchAssetModels];
     }
+    // FixBug: 当设置最大选择照片数为1，拍照-使用照片-完成，完成之后下次再点拍照没有唤起相机进入拍照页面，而是进入照片预览页面
+    [self.collectionView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
